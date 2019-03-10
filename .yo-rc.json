@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Shubham Awasthi",
+      "authorEmail": "aw.shubh@gmail.com",
+      "authorUrl": "awasthishubh.github.io"
+    }
+  }
+}
