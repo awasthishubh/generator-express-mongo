@@ -1,15 +1,15 @@
 const Generator = require('yeoman-generator');
 
-askEnv=[
+askEnv=(i)=>[
     {
         type: 'input',
         name: 'key',
-        message: 'Key?',
+        message: `Key_${i}?`,
     },
     {
         type: 'input',
         name: 'value',
-        message: 'value?',
+        message: `value_${i}?`,
     }
 ]
 
@@ -24,17 +24,20 @@ module.exports = class extends Generator {
             }
         ];
         
-        return this.prompt(prompts).then(res=>{
+        return this.prompt(prompts).then(async res=>{
             let env={}
             for(let i=0;i<parseInt(res.numEnv);i++){
-                this.prompt(askEnv).then(res2=>{
-                    env[res2.key]=res2.value
-                })
+                let res2=await this.prompt(askEnv(i))
+                env[res2.key]=res2.value
             }
             this.props={env}
         })
     }
     writing() {
-        console.log(this.props)
+        this.fs.copyTpl(
+            this.templatePath('.env'),
+            this.destinationPath('.env'),
+            { env: this.props.env } // user answer `title` used
+        );
     }
 }
