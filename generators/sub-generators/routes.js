@@ -35,14 +35,14 @@ module.exports = class extends Generator {
     writing() {
         this.props.route.forEach(r=>{
             this.fs.copyTpl(
-                this.templatePath('models/modelSchema.ejs'),
-                this.destinationPath(`models/${r}Schema.js`),
+                this.templatePath('routes/route.ejs'),
+                this.destinationPath(`routes/${r}.js`),
                 { route: r }
             );
         })
         this.fs.copyTpl(
-            this.templatePath('models/index.ejs'),
-            this.destinationPath(`models/index.js`),
+            this.templatePath('routes/index.ejs'),
+            this.destinationPath(`routes/index.js`),
             { routes: this.props.route }
         )
     }

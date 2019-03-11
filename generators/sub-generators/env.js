@@ -1,4 +1,5 @@
 const Generator = require('yeoman-generator');
+const path=require('path')
 
 askEnv=(i)=>[
     {
@@ -14,6 +15,9 @@ askEnv=(i)=>[
 ]
 
 module.exports = class extends Generator {
+    path(){
+        this.sourceRoot(path.join(__dirname,'..','templates'))
+    }
     prompting() {
         const prompts = [
             {

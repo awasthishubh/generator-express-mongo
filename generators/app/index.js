@@ -24,10 +24,13 @@ module.exports = class extends Generator {
     ];
 
     return this.prompt(prompts).then(props => {
-      // // To access props later use this.props.someAnswer;
-      // this.props = props;
-      if(props.someAnswer)
+      if(props.someAnswer){
+        this.composeWith(require.resolve('../sub-generators/env'), {preprocessor: 'sass'});
+        this.composeWith(require.resolve('../sub-generators/models'), {preprocessor: 'sass'});
         this.composeWith(require.resolve('../sub-generators/routes'), {preprocessor: 'sass'});
+        this.composeWith(require.resolve('../sub-generators/policies'), {preprocessor: 'sass'});
+
+      }
     });
   }
 
