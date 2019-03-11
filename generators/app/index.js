@@ -27,7 +27,7 @@ module.exports = class extends Generator {
       // // To access props later use this.props.someAnswer;
       // this.props = props;
       if(props.someAnswer)
-        this.composeWith(require.resolve('../sub-generators/env'), {preprocessor: 'sass'});
+        this.composeWith(require.resolve('../sub-generators/routes'), {preprocessor: 'sass'});
     });
   }
 

@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 
 const model = new schema({
-    attrName:{
+    attrExample:{
         type:String
     }
 });
 
-module.exports = mongoose.model("attrName", model);
+module.exports = mongoose.model("<%= route %>", model);

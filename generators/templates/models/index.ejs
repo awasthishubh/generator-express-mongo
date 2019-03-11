@@ -1,0 +1,4 @@
+module.exports={
+    <% routes.forEach((route)=>{ %><%= route %>: require('./<%= route %>Schema'),
+    <% }) %>
+}
