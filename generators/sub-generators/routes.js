@@ -1,32 +1,33 @@
 const Generator = require('yeoman-generator');
 const path=require('path')
 
-askEnv=(i)=>[
-    {
-        type: 'input',
-        name: 'route',
-        message: `Route_${i} name?`,
-    }
-]
+
 
 module.exports = class extends Generator {
     path(){
         this.sourceRoot(path.join(__dirname,'..','templates'))
     }
+    _askEnv(i){return [
+        {
+            type: 'input',
+            name: 'route',
+            message: `Route_${i} name?`,
+        }
+    ]}
     prompting() {
         const prompts = [
             {
-              type: 'input',
-              name: 'numEnv',
-              message: 'Enter number of env varaibles',
-              default: '0'
+                type: 'input',
+                name: 'numEnv',
+                message: 'Enter number of routes',
+                default: '0'
             }
         ];
         
         return this.prompt(prompts).then(async res=>{
             let route=[]
             for(let i=0;i<parseInt(res.numEnv);i++){
-                let res2=await this.prompt(askEnv(i))
+                let res2=await this.prompt(this._askEnv(i))
                 route.push(res2.route)
             }
             this.props={route}

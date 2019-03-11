@@ -13,6 +13,14 @@ module.exports = class extends Generator {
     path(){
         this.sourceRoot(path.join(__dirname,'..','templates'))
     }
+    _askEnv(i){return [
+        {
+            type: 'input',
+            name: 'policy',
+            message: `Policy_${i} name?`,
+        }
+    ]}
+    
     prompting() {
         const prompts = [
             {
@@ -26,7 +34,7 @@ module.exports = class extends Generator {
         return this.prompt(prompts).then(async res=>{
             let policies=[]
             for(let i=0;i<parseInt(res.numEnv);i++){
-                let res2=await this.prompt(askEnv(i))
+                let res2=await this.prompt(this._askEnv(i))
                 policies.push(res2.policy)
             }
             this.props={policies}
