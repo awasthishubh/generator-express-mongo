@@ -31,6 +31,11 @@ module.exports = class extends Generator {
             this.props={models}
         })
     }
+    
+    setConfig(){
+        this.config.set({models:this.props.models})
+    }
+
     writing() {
         this.props.models.forEach(r=>{
             this.fs.copyTpl(

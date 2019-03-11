@@ -25,16 +25,21 @@ module.exports = class extends Generator {
         ];
         
         return this.prompt(prompts).then(async res=>{
-            let route=[]
+            let routes=[]
             for(let i=0;i<parseInt(res.numEnv);i++){
                 let res2=await this.prompt(this._askEnv(i))
-                route.push(res2.route)
+                routes.push(res2.route)
             }
-            this.props={route}
+            this.props={routes}
         })
     }
+
+    setConfig(){
+        this.config.set({routes:this.props.routes})
+    }
+
     writing() {
-        this.props.route.forEach(r=>{
+        this.props.routes.forEach(r=>{
             this.fs.copyTpl(
                 this.templatePath('routes/route.ejs'),
                 this.destinationPath(`routes/${r}.js`),
@@ -44,7 +49,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('routes/index.ejs'),
             this.destinationPath(`routes/index.js`),
-            { routes: this.props.route }
+            { routes: this.props.routes }
         )
     }
 }

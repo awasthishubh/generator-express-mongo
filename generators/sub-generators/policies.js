@@ -40,6 +40,11 @@ module.exports = class extends Generator {
             this.props={policies}
         })
     }
+
+    setConfig(){
+        this.config.set({policies:this.props.policies})
+    }
+
     writing() {
         this.props.policies.forEach(p=>{
             this.fs.copyTpl(

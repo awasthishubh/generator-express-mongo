@@ -25,16 +25,18 @@ module.exports = class extends Generator {
 
     return this.prompt(prompts).then(props => {
       if(props.someAnswer){
-        this.composeWith(require.resolve('../sub-generators/env'), {preprocessor: 'sass'});
-        this.composeWith(require.resolve('../sub-generators/models'), {preprocessor: 'sass'});
-        this.composeWith(require.resolve('../sub-generators/routes'), {preprocessor: 'sass'});
-        this.composeWith(require.resolve('../sub-generators/policies'), {preprocessor: 'sass'});
+        // this.composeWith(require.resolve('../sub-generators/env'), {preprocessor: 'sass'})
+        // this.composeWith(require.resolve('../sub-generators/models'), {preprocessor: 'sass'});
+        // this.composeWith(require.resolve('../sub-generators/routes'), {preprocessor: 'sass'});
+        // this.composeWith(require.resolve('../sub-generators/policies'), {preprocessor: 'sass'});
 
       }
     });
   }
 
+  
   writing() {
+    console.log(this.config.get("models"))
     this.fs.copy(
       this.templatePath('dummyfile.txt'),
       this.destinationPath('dummyfile.txt')

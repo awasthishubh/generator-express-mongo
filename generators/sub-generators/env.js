@@ -40,6 +40,11 @@ module.exports = class extends Generator {
             this.props={env}
         })
     }
+
+    setConfig(){
+        this.config.set({env:this.props.env})
+    }
+
     writing() {
         this.fs.copyTpl(
             this.templatePath('.env'),
