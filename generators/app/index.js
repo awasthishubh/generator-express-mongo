@@ -130,6 +130,10 @@ module.exports = class extends Generator {
         version:this.props.version
       }
     );
+    this.fs.copyTpl(
+      this.templatePath('.gitignore'),
+      this.destinationPath('.gitignore')
+    )
   }
 
   install() {
