@@ -8,18 +8,19 @@ require('dotenv').config();
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+<% if(cors){%>
 app.use((req,res, next)=>{	
     res.header("Access-Control-Allow-Origin", "*");	
     res.header("Access-Control-Allow-Headers", "Authorization");	
     res.header('Access-Control-Allow-Methods','GET, PUT, POST, DELETE, PATCH, OPTIONS');
     next()
 })
+<% } %>
 
-app.use("/question", require("./routes/question.js"));
-app.use("/auction", require("./routes/auction.js"));
-app.use("/team", require("./routes/team.js"));
-app.use("/admin", require("./routes/admin.js"));
-app.use('/static',express.static('./static'))
+<% if(routes){%>
+<%  routes.forEach((route)=>{ %>app.use("/<%= route %>", require("./routes/<%= route %>.js"));
+<%  }) %>
+<% } %>
 
 
 mongoose.connect(process.env.db, {useNewUrlParser: true}, (err, db)=>{

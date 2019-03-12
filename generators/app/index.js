@@ -13,6 +13,12 @@ var npmPrompt = (defaultDest) => [
   },
   {
     type: 'input',
+    name: 'version',
+    message: 'Version of application?',
+    default:'1.0.0'
+  },
+  {
+    type: 'input',
     name: 'description',
     message: 'Little discription?',
   },
@@ -81,25 +87,42 @@ module.exports = class extends Generator {
     this.log(chalk.yellow("\n\nLet's now configure project settings\n"))
     var config = await this.prompt(ConfigPrompt)
 
-    var config = await this.prompt(configSubGen)
-    if(config.generators.includes('env'))
+    var subGen = await this.prompt(configSubGen)
+    if(subGen.generators.includes('env'))
       this.composeWith(require.resolve('../sub-generators/env'), {preprocessor: 'sass'})
-    if(config.generators.includes('policies'))
+    if(subGen.generators.includes('policies'))
       this.composeWith(require.resolve('../sub-generators/policies'), {preprocessor: 'sass'})
-    if(config.generators.includes('models'))
+    if(subGen.generators.includes('models'))
       this.composeWith(require.resolve('../sub-generators/models'), {preprocessor: 'sass'})
-    if(config.generators.includes('controllers'))
+    if(subGen.generators.includes('controllers'))
       this.composeWith(require.resolve('../sub-generators/routes'), {preprocessor: 'sass'})
     
-    return this.props={...npm,...config,subGen:config.generators}
+      console.log(config)
+      console.log({...npm,...config})
+    return this.props={...npm,...config,subGen:subGen.generators}
   }
 
-
   writing() {
-    console.log(this.config.get("models"))
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
+    console.log(this.props,this.props.cors)
+    this.fs.copyTpl(
+      this.templatePath('index.ejs'),
+      this.destinationPath('index.js'),
+      {
+        cors:this.props.cors,
+        routes:this.config.get("routes"),
+      }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('package.ejs'),
+      this.destinationPath('package.json'),
+      {
+        name:this.props.name,
+        description:this.props.description,
+        author:this.props.author,
+        homepage:this.props.homepage,
+        version:this.props.version
+      }
     );
   }
 
