@@ -16,13 +16,26 @@ Then generate your new project:
 yo express-mongo
 ```
 
-## Getting To Know Yeoman
-
- * Yeoman has a heart of gold.
- * Yeoman is a person with feelings and opinions, but is very easy to work with.
- * Yeoman can be too opinionated at times but is easily convinced not to be.
- * Feel free to [learn more about Yeoman](http://yeoman.io/).
-
+## File Structure
+```
+  |
+  |-->models
+  |     |--> modelSchema.js
+  |     |--> index.js
+  |-->policies
+  |     |--> policy.js
+  |     |--> index.js
+  |-->routes
+  |     |--> route.js
+  |     |--> index.js
+  |-->static
+  |     |--> index.html
+  |-->index.js
+  |-->package.json
+  |-->.env
+  |-->.gitignore
+  
+```
 ## License
 
 Apache-2.0 © [Shubham Awasthi](awasthishubh.github.io)
