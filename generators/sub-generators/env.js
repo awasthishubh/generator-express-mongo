@@ -6,7 +6,6 @@ const path=require('path')
 module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts);
-        console.log(111,args, opts)
         this.props={env:opts.options}
     }
 

@@ -49,7 +49,7 @@ module.exports = class extends Generator {
         this.props.policies.forEach(p=>{
             this.fs.copyTpl(
                 this.templatePath('policies/policy.ejs'),
-                this.destinationPath(`policies/${p}Schema.js`),
+                this.destinationPath(`policies/${p}.js`),
                 { policy: p }
             );
         })

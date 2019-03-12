@@ -8,8 +8,8 @@ module.exports = class extends Generator {
     _askEnv(i){return [
         {
             type: 'input',
-            name: 'collection',
-            message: `Collection_${i} name?`,
+            name: 'model',
+            message: `Model_${i} name?`,
         }
     ]}
     prompting() {
@@ -17,7 +17,7 @@ module.exports = class extends Generator {
             {
               type: 'input',
               name: 'numEnv',
-              message: 'Enter number of collections you want to have',
+              message: 'Enter number of models you want to have',
               default: '0'
             }
         ];
@@ -26,7 +26,7 @@ module.exports = class extends Generator {
             let models=[]
             for(let i=0;i<parseInt(res.numEnv);i++){
                 let res2=await this.prompt(this._askEnv(i))
-                models.push(res2.collection)
+                models.push(res2.model)
             }
             this.props={models}
         })
