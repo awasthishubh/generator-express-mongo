@@ -1,6 +1,6 @@
 {
   "name": "generator-express-mongo",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Basic express with mongoDB bootstrap",
   "homepage": "https://github.com/awasthishubh/generator-express-mongo",
   "author": {
