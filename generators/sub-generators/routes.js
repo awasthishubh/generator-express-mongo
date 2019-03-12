@@ -43,13 +43,19 @@ module.exports = class extends Generator {
             this.fs.copyTpl(
                 this.templatePath('routes/route.ejs'),
                 this.destinationPath(`routes/${r}.js`),
-                { route: r }
+                { 
+                    route: r,
+                    models: this.config.get("models"),
+                    policies:this.config.get("policies")
+                }
             );
         })
         this.fs.copyTpl(
             this.templatePath('routes/index.ejs'),
             this.destinationPath(`routes/index.js`),
-            { routes: this.props.routes }
+            { 
+                routes: this.props.routes
+            }
         )
     }
 }

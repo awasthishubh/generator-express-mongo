@@ -1,4 +1,16 @@
 const router =  require("express").Router();
+<% if(models && models.length>0){%>const models=require('../models')
+/* 
+    get <%models.forEach((model)=>{ %><%= model %>, <%})%> as property of models
+    eg: models.<%=models[0]%>.find({})
+*/
+<% } %>
+<% if(policies && policies.length>0){%>const polcies=require('../policies')
+/* 
+    get <%policies.forEach((policy)=>{ %><%= policy %>, <%})%> as property of polcies
+    eg: policies.<%=policies[0]%>
+*/
+<% } %>
 
 router.get('/', function(req,res){
     res.send('<%= route %> Index Route')
