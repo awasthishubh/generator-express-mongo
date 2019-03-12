@@ -36,6 +36,13 @@ yo express-mongo
   |-->.gitignore
   
 ```
+## Screenshots
+<img src="https://github.com/awasthishubh/generator-express-mongo/blob/master/screenshots/Screenshot%20from%202019-03-12%2014-07-07.png" width="400px">
+<img src="https://github.com/awasthishubh/generator-express-mongo/blob/master/screenshots/Screenshot%20from%202019-03-12%2014-07-40.png" width="400px">
+<img src="https://github.com/awasthishubh/generator-express-mongo/blob/master/screenshots/Screenshot%20from%202019-03-12%2014-10-17.png" width="400px">
+<img src="https://github.com/awasthishubh/generator-express-mongo/blob/master/screenshots/Screenshot%20from%202019-03-12%2014-14-17.png" width="400px">
+
+
 ## License
 
 Apache-2.0 © [Shubham Awasthi](awasthishubh.github.io)
