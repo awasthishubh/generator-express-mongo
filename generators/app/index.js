@@ -52,7 +52,7 @@ var ConfigPrompt = [
     when: function (response) {
       return response.mongo;
     },
-    name: 'mongoDB',
+    name: 'db',
     message: 'Enter full mongoDB URL?',
   },
   {
@@ -88,8 +88,16 @@ module.exports = class extends Generator {
     var config = await this.prompt(ConfigPrompt)
 
     var subGen = await this.prompt(configSubGen)
-    if(subGen.generators.includes('env'))
-      this.composeWith(require.resolve('../sub-generators/env'), {preprocessor: 'sass'})
+
+    this.props={...npm,...config,subGen:subGen.generators}
+
+    this.composeWith(require.resolve('../sub-generators/env'), 
+      {preprocessor: 'sass',
+      options:{
+        ask:subGen.generators.includes('env'),
+        PORT:this.props.port,
+        db:this.props.mongo?this.props.db:''
+      }})
     if(subGen.generators.includes('policies'))
       this.composeWith(require.resolve('../sub-generators/policies'), {preprocessor: 'sass'})
     if(subGen.generators.includes('models'))
@@ -97,19 +105,17 @@ module.exports = class extends Generator {
     if(subGen.generators.includes('controllers'))
       this.composeWith(require.resolve('../sub-generators/routes'), {preprocessor: 'sass'})
     
-      console.log(config)
-      console.log({...npm,...config})
-    return this.props={...npm,...config,subGen:subGen.generators}
+    return true
   }
 
   writing() {
-    console.log(this.props,this.props.cors)
     this.fs.copyTpl(
       this.templatePath('index.ejs'),
       this.destinationPath('index.js'),
       {
         cors:this.props.cors,
         routes:this.config.get("routes"),
+        mongo:this.props.mongo
       }
     );
 
@@ -127,6 +133,10 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.installDependencies({ bower: false });
+    this.installDependencies({ 
+      npm: true,
+      bower: false,
+      yarn: false
+    });
   }
 }; 

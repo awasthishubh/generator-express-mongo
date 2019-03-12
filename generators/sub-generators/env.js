@@ -4,6 +4,12 @@ const path=require('path')
 
 
 module.exports = class extends Generator {
+    constructor(args, opts) {
+        super(args, opts);
+        console.log(111,args, opts)
+        this.props={env:opts.options}
+    }
+
     path(){
         this.sourceRoot(path.join(__dirname,'..','templates'))
     }
@@ -31,14 +37,17 @@ module.exports = class extends Generator {
             }
         ];
         
-        return this.prompt(prompts).then(async res=>{
-            let env={}
-            for(let i=0;i<parseInt(res.numEnv);i++){
-                let res2=await this.prompt(this._askEnv(i))
-                env[res2.key]=res2.value
-            }
-            this.props={env}
-        })
+        if(this.props.env.ask)
+            return this.prompt(prompts).then(async res=>{
+                let env={}
+                for(let i=0;i<parseInt(res.numEnv);i++){
+                    let res2=await this.prompt(this._askEnv(i))
+                    env[res2.key]=res2.value
+                }
+                this.props.env={...env,...this.props.env}
+            })
+        
+        return true
     }
 
     setConfig(){
