@@ -1,19 +1,19 @@
 {
   "name": "generator-express-mongo",
   "version": "0.0.0",
-  "description": "Basic express with mongoDb",
-  "homepage": "",
+  "description": "Basic express with mongoDB bootstrap",
+  "homepage": "https://github.com/awasthishubh/generator-express-mongo",
   "author": {
     "name": "Shubham Awasthi",
     "email": "aw.shubh@gmail.com",
-    "url": "awasthishubh.github.io"
+    "url": "http://awasthishubh.github.io"
   },
   "files": [
     "generators"
   ],
   "main": "generators/index.js",
   "keywords": [
-    "",
+    "Mongo","Express","Bootstrap",
     "yeoman-generator"
   ],
   "devDependencies": {
@@ -69,6 +69,6 @@
     "pretest": "eslint .",
     "test": "jest"
   },
-  "repository": "awasthishubh/generator-express-mongo",
+  "repository": "https://github.com/awasthishubh/generator-express-mongo",
   "license": "Apache-2.0"
 }
