@@ -55,7 +55,16 @@ var ConfigPrompt = [
     message: 'Do you want to enable cores?',
     default: false
   }
+]
 
+var configSubGen=[
+  {
+    type:'checkbox',
+    name: 'generators',
+    message: 'Choose the generators you want to use.',
+    choices: [ "env","policies","models","controllers",],
+    default: [ "env","models","controllers"]
+  }
 ]
 
 module.exports = class extends Generator {
@@ -63,34 +72,26 @@ module.exports = class extends Generator {
     this.sourceRoot(path.join(__dirname, '..', 'templates'))
   }
   async prompting() {
-    // Have Yeoman greet the user.
     this.log(
       yosay(`Welcome to the super-duper ${chalk.red('generator-express-mongo')} generator!`)
     );
     this.log(chalk.yellow("\n\nLet's configure NPM Package\n"))
     var npm = await this.prompt(npmPrompt.bind(this)(this.destinationRoot().split('/').pop()))
+    
     this.log(chalk.yellow("\n\nLet's now configure project settings\n"))
     var config = await this.prompt(ConfigPrompt)
 
-    return this.props={...npm,...config}
-    const prompts = [
-      {
-        type: 'confirm',
-        name: 'someAnswer',
-        message: 'Would you like to enable this option?',
-        default: true
-      }
-    ];
-
-    return this.prompt(prompts).then(props => {
-      if (props.someAnswer) {
-        // this.composeWith(require.resolve('../sub-generators/env'), {preprocessor: 'sass'})
-        // this.composeWith(require.resolve('../sub-generators/models'), {preprocessor: 'sass'});
-        // this.composeWith(require.resolve('../sub-generators/routes'), {preprocessor: 'sass'});
-        // this.composeWith(require.resolve('../sub-generators/policies'), {preprocessor: 'sass'});
-
-      }
-    });
+    var config = await this.prompt(configSubGen)
+    if(config.generators.includes('env'))
+      this.composeWith(require.resolve('../sub-generators/env'), {preprocessor: 'sass'})
+    if(config.generators.includes('policies'))
+      this.composeWith(require.resolve('../sub-generators/policies'), {preprocessor: 'sass'})
+    if(config.generators.includes('models'))
+      this.composeWith(require.resolve('../sub-generators/models'), {preprocessor: 'sass'})
+    if(config.generators.includes('controllers'))
+      this.composeWith(require.resolve('../sub-generators/routes'), {preprocessor: 'sass'})
+    
+    return this.props={...npm,...config,subGen:config.generators}
   }
 
 
