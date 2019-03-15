@@ -1,5 +1,5 @@
 # generator-express-mongo [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
-> Basic express with mongoDb
+> A scaffolding tool that will create a bootstrap code for starting with a basic express-mongo server.
 
 ## Installation
 
